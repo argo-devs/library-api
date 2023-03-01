@@ -1,0 +1,5 @@
+rootProject.name = 'library'
+include 'module-api'
+include 'module-backoffice'
+include 'module-batch'
+include 'module-core'

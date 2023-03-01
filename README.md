@@ -1,4 +1,4 @@
 # library-api
-도서관 시스템 API
+미리디 도서관 API
 
-Copyright (c) 2022 MIRIDIH
+Copyright (c) 2023 MIRIDIH
