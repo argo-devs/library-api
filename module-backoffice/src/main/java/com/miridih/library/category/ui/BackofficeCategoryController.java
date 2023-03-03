@@ -16,13 +16,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class CategoryController {
+public class BackofficeCategoryController {
 
     private final BackofficeCategoryService backofficeCategoryService;
 
     @GetMapping("/category")
     public List<CategoryResponse> getAllCategories(@RequestParam(required = false) String name) {
-        log.info("HELLO");
         List<Category> categoryList = new ArrayList<>();
 
         if(name != null) {
