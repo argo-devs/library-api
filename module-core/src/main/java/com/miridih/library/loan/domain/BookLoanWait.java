@@ -1,7 +1,6 @@
 package com.miridih.library.loan.domain;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

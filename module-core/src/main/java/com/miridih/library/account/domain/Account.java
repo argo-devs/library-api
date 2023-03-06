@@ -23,6 +23,7 @@ public class Account {
     private Long id;
     private String name;
     private String email;
+    @ToString.Exclude
     private String password;
     @Column(name = "enabled")
     private boolean isEnabled;

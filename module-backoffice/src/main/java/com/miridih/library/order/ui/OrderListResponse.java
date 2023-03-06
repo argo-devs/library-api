@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @Data
 public class OrderListResponse {
     private int totalPage;
-    private List<OrderResponse> orders = new ArrayList<>();
+    private List<OrderResponse> orderList = new ArrayList<>();
 
     public static OrderListResponse from(Page<Order> orders) {
         OrderListResponse response = new OrderListResponse();
         response.totalPage = orders.getTotalPages();
-        response.orders = orders.getContent()
+        response.orderList = orders.getContent()
                 .stream()
                 .map(OrderResponse::from)
                 .collect(Collectors.toList());

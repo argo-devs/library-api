@@ -1,12 +1,13 @@
 package com.miridih.library.book.internal.application;
 
 import com.miridih.library.book.internal.domain.Book;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface BookService {
     Book get(Long bookId);
-    Page<Book> getAll();
     Book save(Book book);
+    List<Book> bulkSave(List<Book> bookList);
     Book update(Book book);
     void delete(Long bookId);
 }

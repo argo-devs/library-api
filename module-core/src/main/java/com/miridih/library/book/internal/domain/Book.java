@@ -18,6 +18,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private UUID uuid;
+    @Enumerated(EnumType.STRING)
     private BookStatus status;
     private LocalDateTime registeredDate;
 
@@ -27,4 +28,24 @@ public class Book {
 
     @OneToOne(mappedBy = "book")
     private BookLoan bookLoan;
+
+    public static Book of(Long id) {
+        Book book = new Book();
+        book.id = id;
+
+        return book;
+    }
+    public static Book from(Long bookMetaId) {
+        Book book = new Book();
+        book.uuid = UUID.randomUUID();
+        book.status = BookStatus.ACTIVE;
+        book.registeredDate = LocalDateTime.now();
+        book.bookMeta = BookMeta.of(bookMetaId);
+
+        return book;
+    }
+
+    public void updateStatus(BookStatus status) {
+        this.status = status;
+    }
 }

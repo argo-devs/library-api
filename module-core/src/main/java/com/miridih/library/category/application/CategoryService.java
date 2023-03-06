@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CategoryService {
     Category get(Long categoryId);
+    Category getByName(String name);
     List<Category> getAll();
     Category save(Category category);
     Category update(Category category);

@@ -28,4 +28,18 @@ public class BookLoan {
     private LocalDateTime loanedDate;
     private LocalDateTime toBeReturnedDate;
     private LocalDateTime returnedDate;
+
+
+    public void extendLoan(int days) {
+        toBeReturnedDate = toBeReturnedDate.plusDays(days);
+    }
+
+    public void returnBook() {
+        returnBook(LocalDateTime.now());
+    }
+
+    public void returnBook(LocalDateTime returnedDate) {
+        this.returnedDate = returnedDate;
+
+    }
 }

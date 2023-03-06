@@ -21,6 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category getByName(String name) {
+        return categoryRepository
+                .findByName(name)
+                .orElseThrow(() -> new RuntimeException(""));
+    }
+
+    @Override
     public List<Category> getAll() {
         return categoryRepository.findAll();
     }
