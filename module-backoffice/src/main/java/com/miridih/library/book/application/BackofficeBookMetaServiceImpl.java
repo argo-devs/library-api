@@ -35,11 +35,7 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
 
     @Override
     public List<ExternalBookMeta> searchBookMeta(ExternalBookMetaSearchCondition searchCondition) {
-        List<ExternalBookMeta> bookMetaList = externalBookMetaService.search(searchCondition);
-        log.info("Book meta size: {}", bookMetaList.size());
-        log.info("Book meta list: {}", bookMetaList);
-
-        return bookMetaList;
+        return externalBookMetaService.search(searchCondition);
     }
 
     @Override

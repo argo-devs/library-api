@@ -11,6 +11,7 @@ public class ExternalBookMetaResponse {
     private String author;
     private String publisher;
     private String imageUrl;
+    private String link;
 
     public static ExternalBookMetaResponse from(ExternalBookMeta bookMeta) {
         ExternalBookMetaResponse response = new ExternalBookMetaResponse();
@@ -19,6 +20,7 @@ public class ExternalBookMetaResponse {
         response.author = bookMeta.getAuthor();
         response.publisher = bookMeta.getPublisher();
         response.imageUrl = bookMeta.getImageUrl();
+        response.link = bookMeta.getLink();
 
         return response;
     }

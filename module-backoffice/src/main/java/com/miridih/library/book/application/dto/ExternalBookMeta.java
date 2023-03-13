@@ -14,4 +14,5 @@ public class ExternalBookMeta {
     private String publisher;
     private String isbn;
     private String imageUrl;
+    private String link;
 }

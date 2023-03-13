@@ -11,6 +11,7 @@ class NaverBook {
     private String author;
     private String publisher;
     private String isbn;
+    private String link;
 
     public ExternalBookMeta toExternalBookMeta() {
         return ExternalBookMeta
@@ -21,6 +22,7 @@ class NaverBook {
                 .publisher(publisher)
                 .isbn(isbn)
                 .imageUrl(image)
+                .link(link)
                 .build();
     }
 }

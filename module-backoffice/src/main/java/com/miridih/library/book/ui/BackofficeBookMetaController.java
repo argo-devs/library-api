@@ -10,6 +10,7 @@ import com.miridih.library.book.ui.request.BookMetaUpdateRequest;
 import com.miridih.library.book.ui.response.BookCodeResponse;
 import com.miridih.library.book.ui.response.BookMetaListResponse;
 import com.miridih.library.book.ui.response.BookMetaResponse;
+import com.miridih.library.book.ui.response.ExternalBookMetaListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -61,11 +62,11 @@ public class BackofficeBookMetaController {
 
     // 외부 도서를 검색하는 요청
     @GetMapping("/book-meta/external")
-    public BookMetaListResponse searchBookMeta(BookMetaSearchRequest request) {
-        log.info("Request: {}", request);
-        List<ExternalBookMeta> externalBookMetaList = backofficeBookMetaService.searchBookMeta(request.toExternalBookMetaSearchCondition());
+    public ExternalBookMetaListResponse searchBookMeta(BookMetaSearchRequest request) {
+        List<ExternalBookMeta> externalBookMetaList =
+                backofficeBookMetaService.searchBookMeta(request.toExternalBookMetaSearchCondition());
 
-        return BookMetaListResponse.from(externalBookMetaList);
+        return ExternalBookMetaListResponse.from(externalBookMetaList);
     }
 
     @GetMapping("/book-meta/code/{bookMetaId}")

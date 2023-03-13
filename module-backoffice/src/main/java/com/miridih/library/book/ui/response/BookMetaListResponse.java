@@ -24,15 +24,4 @@ public class BookMetaListResponse {
 
         return response;
     }
-
-    public static BookMetaListResponse from(List<ExternalBookMeta> externalBookMetaList) {
-        BookMetaListResponse response = new BookMetaListResponse();
-        response.totalPage = 0;
-        response.bookMetaList = externalBookMetaList
-                .stream()
-                .map(BookMetaResponse::from)
-                .collect(Collectors.toList());
-
-        return response;
-    }
 }
