@@ -17,10 +17,9 @@ public class BookMetaListResponse {
     public static BookMetaListResponse from(Page<BookMeta> bookMetaPage) {
         BookMetaListResponse response = new BookMetaListResponse();
         response.totalPage = bookMetaPage.getTotalPages();
-        response.bookMetaList = bookMetaPage.getContent()
-                .stream()
-                .map(BookMetaResponse::from)
-                .collect(Collectors.toList());
+        bookMetaPage
+                .getContent()
+                .forEach(bookMeta -> response.bookMetaList.add(BookMetaResponse.from(bookMeta)));
 
         return response;
     }
