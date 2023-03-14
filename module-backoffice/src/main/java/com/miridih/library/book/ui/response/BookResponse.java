@@ -2,10 +2,11 @@ package com.miridih.library.book.ui.response;
 
 import com.miridih.library.book.internal.domain.Book;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class BookResponse {
     @Getter
     @AllArgsConstructor
@@ -29,6 +30,13 @@ public class BookResponse {
         if(book.getBookLoan() != null) {
             response.bookLoan = new Loan(book.getBookLoan().getId());
         }
+
+        return response;
+    }
+
+    public static BookResponse of(Long bookId) {
+        BookResponse response = new BookResponse();
+        response.bookId = bookId;
 
         return response;
     }

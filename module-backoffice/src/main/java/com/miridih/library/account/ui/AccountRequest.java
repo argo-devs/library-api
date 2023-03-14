@@ -2,12 +2,13 @@ package com.miridih.library.account.ui;
 
 import com.miridih.library.account.application.dto.AccountInput;
 import com.miridih.library.account.domain.enums.AccountRole;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
-@Data
 public class AccountRequest {
-    @Data
+    @Getter
+    @ToString
     public static class Register {
         private String name;
         private String email;
@@ -25,7 +26,8 @@ public class AccountRequest {
         }
     }
 
-    @Data
+    @Getter
+    @ToString
     public static class Update {
         @NonNull
         private Long accountId;

@@ -1,9 +1,11 @@
 package com.miridih.library.category.ui.request;
 
 import com.miridih.library.category.application.dto.CategoryUpdateInput;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class CategoryUpdateRequest {
     private Long categoryId;
     private String categoryName;

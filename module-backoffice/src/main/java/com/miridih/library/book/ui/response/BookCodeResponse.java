@@ -1,9 +1,11 @@
 package com.miridih.library.book.ui.response;
 
 import com.miridih.library.book.application.dto.BookCode;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class BookCodeResponse {
     private String bookId;
     private byte[] code;

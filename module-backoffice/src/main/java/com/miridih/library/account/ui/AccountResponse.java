@@ -21,4 +21,11 @@ public class AccountResponse {
                 .role(Role.from(account.getRole()))
                 .build();
     }
+
+    public static AccountResponse of(Long accountId) {
+        return AccountResponse
+                .builder()
+                .accountId(accountId)
+                .build();
+    }
 }

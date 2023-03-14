@@ -6,13 +6,12 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @ToString
 public class ExternalBookMetaListResponse {
     private int totalPage;
-    private List<ExternalBookMetaResponse> bookMetaList = new ArrayList<>();
+    private final List<ExternalBookMetaResponse> bookMetaList = new ArrayList<>();
 
     public static ExternalBookMetaListResponse from(List<ExternalBookMeta> externalBookMetaList) {
         ExternalBookMetaListResponse response = new ExternalBookMetaListResponse();

@@ -1,9 +1,7 @@
 package com.miridih.library.category.ui.response;
 
 import com.miridih.library.category.domain.Category;
-import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class CategoryResponse {
@@ -14,6 +12,13 @@ public class CategoryResponse {
         CategoryResponse response = new CategoryResponse();
         response.categoryId = category.getId();
         response.categoryName = category.getDisplayName();
+
+        return response;
+    }
+
+    public static CategoryResponse of(Long categoryId) {
+        CategoryResponse response = new CategoryResponse();
+        response.categoryId = categoryId;
 
         return response;
     }

@@ -1,9 +1,11 @@
 package com.miridih.library.book.ui.response;
 
 import com.miridih.library.book.application.dto.ExternalBookMeta;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class ExternalBookMetaResponse {
 
     private String title;

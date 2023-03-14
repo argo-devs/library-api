@@ -1,15 +1,20 @@
 package com.miridih.library.book.ui.response;
 
-import com.miridih.library.book.application.dto.ExternalBookMeta;
 import com.miridih.library.book.internal.domain.BookMeta;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@ToString
 public class BookMetaResponse {
-    @Data
+    public BookMetaResponse() {
+    }
+
+    @Getter
+    @ToString
     private static class Category {
         private Long id;
         private String name;
@@ -23,7 +28,7 @@ public class BookMetaResponse {
         }
     }
 
-    private Long id;
+    private Long bookMetaId;
     private String title;
     private String description;
     private String author;
@@ -31,11 +36,11 @@ public class BookMetaResponse {
     private String isbn;
     private String imageUrl;
     private Category category;
-    private List<BookResponse> bookList = new ArrayList<>();
+    private final List<BookResponse> bookList = new ArrayList<>();
 
     public static BookMetaResponse from(BookMeta bookMeta) {
         BookMetaResponse response = new BookMetaResponse();
-        response.id = bookMeta.getId();
+        response.bookMetaId = bookMeta.getId();
         response.title = bookMeta.getTitle();
         response.description = bookMeta.getDescription();
         response.author = bookMeta.getAuthor();
@@ -47,6 +52,13 @@ public class BookMetaResponse {
                 .forEach(book ->
                         response.bookList.add(BookResponse.from(book))
                 );
+
+        return response;
+    }
+
+    public static BookMetaResponse of(Long bookMetaId) {
+        BookMetaResponse response = new BookMetaResponse();
+        response.bookMetaId = bookMetaId;
 
         return response;
     }

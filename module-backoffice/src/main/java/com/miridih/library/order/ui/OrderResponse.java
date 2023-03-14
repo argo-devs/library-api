@@ -1,9 +1,11 @@
 package com.miridih.library.order.ui;
 
 import com.miridih.library.order.domain.Order;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class OrderResponse {
     private Long orderId;
     private String name;
@@ -24,6 +26,13 @@ public class OrderResponse {
         response.link = order.getLink();
         response.status = order.getStatus().getDisplayName();
         response.requestedDate = order.getRequestedDate().toString();
+
+        return response;
+    }
+
+    public static OrderResponse of(Long orderId) {
+        OrderResponse response = new OrderResponse();
+        response.orderId = orderId;
 
         return response;
     }

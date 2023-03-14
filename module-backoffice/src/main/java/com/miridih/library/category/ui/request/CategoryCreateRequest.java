@@ -1,9 +1,11 @@
 package com.miridih.library.category.ui.request;
 
 import com.miridih.library.category.application.dto.CategoryCreateInput;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class CategoryCreateRequest {
     private String categoryName;
 

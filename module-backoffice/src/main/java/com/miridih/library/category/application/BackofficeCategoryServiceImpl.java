@@ -4,10 +4,12 @@ import com.miridih.library.category.application.dto.CategoryCreateInput;
 import com.miridih.library.category.application.dto.CategoryUpdateInput;
 import com.miridih.library.category.domain.Category;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BackofficeCategoryServiceImpl implements BackofficeCategoryService {
@@ -26,7 +28,7 @@ public class BackofficeCategoryServiceImpl implements BackofficeCategoryService 
                         -> categoryName.equals(category.getName())
                         && categoryName.equals(category.getDisplayName()))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(() -> new RuntimeException("카테고리가 존재하지 않습니다."));
     }
 
     @Override
@@ -47,8 +49,12 @@ public class BackofficeCategoryServiceImpl implements BackofficeCategoryService 
     @Override
     public void deleteCategory(long categoryId) {
         Category category = categoryService.get(categoryId);
-        category.changeDisplayName(DEFAULT_BOOK_CATEGORY_VALUE); // 카테고리 '가타'로 변경
+        if(DEFAULT_BOOK_CATEGORY_VALUE.equals(category.getDisplayName()) &&
+                !DEFAULT_BOOK_CATEGORY_VALUE.equals(category.getName())) {
+            throw new RuntimeException("이미 삭제한 카테고리 입니다.");
+        }
 
+        category.changeDisplayName(DEFAULT_BOOK_CATEGORY_VALUE); // 카테고리 '가타'로 변경
         categoryService.update(category);
     }
 }
