@@ -27,6 +27,7 @@ public class Account {
     private String password;
     @Column(name = "enabled")
     private boolean isEnabled;
+    private boolean receiveEmail;
     @Enumerated(EnumType.STRING)
     private AccountRole role;
     private LocalDateTime registeredDate;
@@ -41,23 +42,26 @@ public class Account {
 
         return account;
     }
-    public static Account createNewAccount(String name, String email, String password, AccountRole role) {
+    public static Account createNewAccount(String name, String email, String password,
+                                           boolean receiveEmail, AccountRole role) {
         Account account = new Account();
         account.name = name;
         account.email = email;
         account.password = password;
         account.role = role;
         account.isEnabled = true;
+        account.receiveEmail = receiveEmail;
         account.registeredDate = LocalDateTime.now();
         account.updatedDate = account.registeredDate;
 
         return account;
     }
 
-    public void updateDetails(String name, String email, String password, AccountRole role) {
+    public void updateDetails(String name, String email, String password, boolean receiveEmail, AccountRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.receiveEmail = receiveEmail;
         this.role = role;
     }
 

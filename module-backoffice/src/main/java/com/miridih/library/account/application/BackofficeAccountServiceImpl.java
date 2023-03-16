@@ -43,6 +43,7 @@ public class BackofficeAccountServiceImpl implements BackofficeAccountService {
                 accountInput.getName(),
                 accountInput.getEmail(),
                 passwordEncoder.encode(accountInput.getPassword()),
+                accountInput.getReceiveEmail(),
                 accountInput.getRole()
         );
 
@@ -61,9 +62,10 @@ public class BackofficeAccountServiceImpl implements BackofficeAccountService {
                 .map(passwordEncoder::encode)
                 .orElse(account.getPassword());
 
+        boolean receiveEmail = Optional.ofNullable(accountInput.getReceiveEmail()).orElse(account.isReceiveEmail());
         AccountRole role = Optional.ofNullable(accountInput.getRole()).orElse(account.getRole());
 
-        account.updateDetails(name, email, password, role);
+        account.updateDetails(name, email, password, receiveEmail, role);
 
         return accountService.update(account);
     }

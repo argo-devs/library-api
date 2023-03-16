@@ -13,5 +13,6 @@ public class AccountInput {
     private String email;
     private String name;
     private String password;
+    private Boolean receiveEmail;
     private AccountRole role;
 }

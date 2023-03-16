@@ -13,6 +13,7 @@ public class AccountRequest {
         private String name;
         private String email;
         private String password;
+        private Boolean receiveEmail;
         private Role role;
 
         public AccountInput toAccountInput() {
@@ -21,6 +22,7 @@ public class AccountRequest {
                     .name(name)
                     .email(email)
                     .password(password)
+                    .receiveEmail(receiveEmail)
                     .role(AccountRole.valueOf(role.toAccountRole()))
                     .build();
         }
@@ -34,6 +36,7 @@ public class AccountRequest {
         private String name;
         private String email;
         private String password;
+        private Boolean receiveEmail;
         private Role role;
 
         public AccountInput toAccountInput() {
@@ -43,6 +46,7 @@ public class AccountRequest {
                     .name(name)
                     .email(email)
                     .password(password)
+                    .receiveEmail(receiveEmail)
                     .role(AccountRole.valueOf(role.toAccountRole()))
                     .build();
         }
