@@ -40,7 +40,7 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
 
     @Override
     public List<BookCode> getAllBookCode(Long bookMetaId) {
-        BookMeta bookMeta = bookMetaService.get(bookMetaId);
+        BookMeta bookMeta = bookMetaService.getById(bookMetaId);
         List<Book> bookList = bookMeta.getBookList();
         List<BookCode> bookCodeList = new ArrayList<>();
         for(Book book: bookList) {
@@ -59,7 +59,7 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
     @Override
     public Page<BookMeta> searchBookMeta(BookMetaSearchCondition searchCondition) {
         if(searchCondition.getBookMetaId() != null) {
-            BookMeta bookMeta = bookMetaService.get(searchCondition.getBookMetaId());
+            BookMeta bookMeta = bookMetaService.getById(searchCondition.getBookMetaId());
             return new PageImpl<>(List.of(bookMeta));
         } else if(searchCondition.getName() != null) {
             return bookMetaService.getByName(searchCondition.getName(), searchCondition.getPageable());
@@ -102,7 +102,7 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
 
     @Override
     public BookMeta updateBookMeta(BookMetaInput bookMetaInput) {
-        BookMeta bookMeta = bookMetaService.get(bookMetaInput.getId());
+        BookMeta bookMeta = bookMetaService.getById(bookMetaInput.getId());
 
         return null;
     }

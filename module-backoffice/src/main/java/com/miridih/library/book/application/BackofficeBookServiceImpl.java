@@ -32,7 +32,7 @@ public class BackofficeBookServiceImpl implements BackofficeBookService {
 
     @Override
     public BookCode getCode(Long bookId) throws IOException, WriterException {
-        Book book = bookService.get(bookId);
+        Book book = bookService.getById(bookId);
         byte[] code = createQRCode(bookId);
 
         // 도서 QR 정보
@@ -56,7 +56,7 @@ public class BackofficeBookServiceImpl implements BackofficeBookService {
 
     @Override
     public Book getBook(Long bookId) {
-        return bookService.get(bookId);
+        return bookService.getById(bookId);
     }
 
     @Transactional
@@ -72,7 +72,7 @@ public class BackofficeBookServiceImpl implements BackofficeBookService {
 
     @Override
     public void deactivateBook(Long bookId) {
-        Book book = bookService.get(bookId);
+        Book book = bookService.getById(bookId);
 
         validateStatusUpdate(book.getStatus());
         book.updateStatus(BookStatus.INACTIVE);
@@ -82,7 +82,7 @@ public class BackofficeBookServiceImpl implements BackofficeBookService {
 
     @Override
     public void activateBook(Long bookId) {
-        Book book = bookService.get(bookId);
+        Book book = bookService.getById(bookId);
 
         validateStatusUpdate(book.getStatus());
         book.updateStatus(BookStatus.ACTIVE);

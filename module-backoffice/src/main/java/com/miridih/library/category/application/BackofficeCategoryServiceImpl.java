@@ -48,7 +48,7 @@ public class BackofficeCategoryServiceImpl implements BackofficeCategoryService 
 
     @Override
     public void deleteCategory(long categoryId) {
-        Category category = categoryService.get(categoryId);
+        Category category = categoryService.getById(categoryId);
         if(DEFAULT_BOOK_CATEGORY_VALUE.equals(category.getDisplayName()) &&
                 !DEFAULT_BOOK_CATEGORY_VALUE.equals(category.getName())) {
             throw new RuntimeException("이미 삭제한 카테고리 입니다.");

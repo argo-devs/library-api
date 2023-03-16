@@ -27,7 +27,7 @@ public class BackofficeOrderServiceImpl implements BackofficeOrderService {
 
     @Override
     public Order updateOrder(OrderUpdateInput input) {
-        Order order = orderService.get(input.getOrderId());
+        Order order = orderService.getById(input.getOrderId());
         order.updateStatus(input.getStatus());
 
         return orderService.update(order);
