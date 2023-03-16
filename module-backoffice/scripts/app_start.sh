@@ -19,9 +19,9 @@ if [ -z $CURRENT_PID ]
 then
   echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다." >> /home/ec2-user/library/deploy.log
 else
-  echo "> kill -15 $CURRENT_PID"
+  echo "> kill -15 $CURRENT_PID" >> /home/ec2-user/library/deploy.log
   kill -15 $CURRENT_PID
-  sleep 10
+  sleep 20
 fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
