@@ -1,11 +1,11 @@
 package com.miridih.library.auth.application;
 
+import com.miridih.library.auth.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,18 +20,17 @@ public class LibraryAuthProvider implements AuthenticationProvider {
     private final UserDetailsService userDetailsService;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         final String email = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         if(userDetails == null) {
-            throw new RuntimeException("사용자 정보를 찾을 수 없습니다.");
+            throw new AuthenticationException("사용자 정보를 찾을 수 없습니다.", email);
         }
 
         if(!passwordEncoder.matches(password, userDetails.getPassword())) {
-            log.info("Input password: {}, Real password: {}", password, userDetails.getPassword());
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new AuthenticationException("비밀번호가 일치하지 않습니다.");
         }
 
         return new UsernamePasswordAuthenticationToken(

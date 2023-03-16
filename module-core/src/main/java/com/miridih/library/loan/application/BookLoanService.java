@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface BookLoanService {
     Page<BookLoan> getAll(Pageable pageable);
-    BookLoan get(Long bookLoanId);
+    BookLoan getById(Long bookLoanId);
     BookLoan loan(BookLoan bookLoan);
     void extend(Long bookLoanId);
     void returnBook(Long bookLoanId);

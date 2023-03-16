@@ -4,6 +4,7 @@ import com.miridih.library.auth.application.dto.TokenInfo;
 import com.miridih.library.auth.application.dto.UserCredential;
 import com.miridih.library.auth.domain.JwtToken;
 import com.miridih.library.auth.domain.RefreshToken;
+import com.miridih.library.auth.exception.RefreshTokenNotFoundException;
 import com.miridih.library.auth.infrastructure.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,9 +53,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .findById(email)
                 .orElseThrow(() -> new RuntimeException("토큰을 찾을 수 없습니다."));
 
-        if(!jwtTokenProvider.isValidToken(refreshToken.getValue())) {
-            throw new RuntimeException("토큰이 유효하지 않습니다."); // todo: isValidToken 에서 throw 하게 변경
-        }
+        jwtTokenProvider.validateToken(refreshToken.getValue());
 
         String newAccessToken = jwtTokenProvider.createAccessToken(authentication);
 
@@ -68,6 +67,12 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public void deleteRefreshToken(String key) {
+        refreshTokenRepository
+                .findById(key)
+                .orElseThrow(() ->
+                        new RefreshTokenNotFoundException("Refresh 토큰을 찾을 수 없습니다.", key)
+                );
+
         refreshTokenRepository.deleteById(key);
     }
 }

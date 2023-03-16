@@ -19,7 +19,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-
     private String title;
     private int quantity;
     private String link;

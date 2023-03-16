@@ -5,7 +5,7 @@ import com.miridih.library.order.domain.Order;
 import org.springframework.data.domain.Page;
 
 public interface OrderService {
-    Order get(Long orderId);
+    Order getById(Long orderId);
     Page<Order> getAll(OrderSearchCondition condition);
     Order save(Order order);
     Order update(Order order);

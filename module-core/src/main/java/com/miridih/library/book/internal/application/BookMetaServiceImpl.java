@@ -1,6 +1,7 @@
 package com.miridih.library.book.internal.application;
 
 import com.miridih.library.book.internal.domain.BookMeta;
+import com.miridih.library.book.internal.exception.BookMetaNotFoundException;
 import com.miridih.library.book.internal.infrastructure.BookMetaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,10 +25,10 @@ public class BookMetaServiceImpl implements BookMetaService {
     }
 
     @Override
-    public BookMeta get(Long bookMetaId) {
+    public BookMeta getById(Long bookMetaId) {
         return bookMetaRepository
                 .findById(bookMetaId)
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(() -> new BookMetaNotFoundException("도서 메타를 찾을 수 없습니다.", bookMetaId));
     }
 
     @Override
@@ -37,11 +38,15 @@ public class BookMetaServiceImpl implements BookMetaService {
 
     @Override
     public BookMeta update(BookMeta bookMeta) {
+        getById(bookMeta.getId());
+
         return bookMetaRepository.save(bookMeta);
     }
 
     @Override
     public void delete(Long bookMetaId) {
+        getById(bookMetaId);
+
         bookMetaRepository.deleteById(bookMetaId);
     }
 }

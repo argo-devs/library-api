@@ -1,6 +1,8 @@
 package com.miridih.library.auth.application;
 
 import com.miridih.library.auth.domain.JwtToken;
+import com.miridih.library.auth.exception.ExpiredTokenException;
+import com.miridih.library.auth.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -82,7 +84,7 @@ public class JwtTokenProvider {
         Claims claims = parseFrom(token);
 
         if(claims.get(AUTH_KEY) == null) {
-            throw new RuntimeException("AUTH_KEY 가 비어있습니다.");
+            throw new InvalidTokenException("AUTH_KEY 가 비어있습니다.", token);
         }
 
         Collection<? extends GrantedAuthority> authorities = Arrays
@@ -96,22 +98,14 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
-    public boolean isValidToken(String token) {
+    public void validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-
-            return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            log.info("유효하지 않은 토큰입니다.", e);
         } catch (ExpiredJwtException e) {
-            log.info("만료된 토큰입니다.", e);
-        } catch (UnsupportedJwtException e) {
-            log.info("지원하지 않는 토큰입니다.", e);
-        } catch (IllegalArgumentException e) {
-            log.info("토큰 클레임이 비어있습니다..", e);
+            throw new ExpiredTokenException("만료된 토큰입니다.", token);
+        } catch (SecurityException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException  e) {
+            throw new InvalidTokenException("유효하지 않은 토큰입니다.", e, token);
         }
-
-        return false;
     }
 
     private String createAuthority(Collection<? extends GrantedAuthority> authorities) {
@@ -130,7 +124,7 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            return e.getClaims();
+            throw new ExpiredTokenException("만료된 토큰입니다.", token);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.miridih.library.auth.application;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -29,12 +27,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 토큰 추출
         String jwtToken = retrieveToken(request);
-        log.info("Token: {}", jwtToken);
 
         // 토큰 검증 및 등록
-        if(jwtToken != null && jwtTokenProvider.isValidToken(jwtToken)) {
+        if(jwtToken != null) {
+            jwtTokenProvider.validateToken(jwtToken);
+
             Authentication authentication = jwtTokenProvider.getAuthentication(jwtToken);
-            System.out.println("Authentication: " + authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

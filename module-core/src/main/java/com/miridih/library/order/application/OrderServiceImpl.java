@@ -3,6 +3,7 @@ package com.miridih.library.order.application;
 import com.miridih.library.account.domain.Account;
 import com.miridih.library.order.application.dto.OrderSearchCondition;
 import com.miridih.library.order.domain.Order;
+import com.miridih.library.order.exception.OrderNotFoundException;
 import com.miridih.library.order.infrastructure.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,10 +16,10 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public Order get(Long orderId) {
+    public Order getById(Long orderId) {
         return orderRepository
                 .findById(orderId)
-                .orElseThrow(() -> new RuntimeException("주문을 찾을 수 없습니다."));
+                .orElseThrow(() -> new OrderNotFoundException("주문을 찾을 수 없습니다.", orderId));
     }
 
     @Override
@@ -38,11 +39,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order update(Order order) {
-        return save(order);
+        getById(order.getId());
+
+        return orderRepository.save(order);
     }
 
     @Override
     public void delete(Long orderId) {
+        getById(orderId);
+
         orderRepository.deleteById(orderId);
     }
 }
