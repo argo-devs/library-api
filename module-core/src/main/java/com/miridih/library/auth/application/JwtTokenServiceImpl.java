@@ -4,6 +4,7 @@ import com.miridih.library.auth.application.dto.TokenInfo;
 import com.miridih.library.auth.application.dto.UserCredential;
 import com.miridih.library.auth.domain.JwtToken;
 import com.miridih.library.auth.domain.RefreshToken;
+import com.miridih.library.auth.exception.AuthenticationException;
 import com.miridih.library.auth.exception.RefreshTokenNotFoundException;
 import com.miridih.library.auth.infrastructure.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
         if(!authentication.isAuthenticated()) {
-            throw new RuntimeException("인증되지 않았습니다.");
+            throw new AuthenticationException("인증되지 않았습니다.", email);
         }
 
         // jwt 토큰 생성
@@ -51,7 +52,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
         RefreshToken refreshToken = refreshTokenRepository
                 .findById(email)
-                .orElseThrow(() -> new RuntimeException("토큰을 찾을 수 없습니다."));
+                .orElseThrow(() -> new RefreshTokenNotFoundException("토큰을 찾을 수 없습니다.", email));
 
         jwtTokenProvider.validateToken(refreshToken.getValue());
 

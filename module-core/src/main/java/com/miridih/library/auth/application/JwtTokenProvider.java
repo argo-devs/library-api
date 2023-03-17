@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-    private static final int ACCESS_TOKEN_EXPIRES_IN = 1800000; // 30분
-    private static final int REFRESH_TOKEN_EXPIRES_IN = 3600000; // 1시간
+    private static final long ACCESS_TOKEN_EXPIRES_IN = 15778476000L; // 6개월
+    private static final long REFRESH_TOKEN_EXPIRES_IN = 31556952000L; // 1년
     private static final String AUTH_KEY = "auth";
     private static final String AUTH_KEY_DELIMITER = ",";
     private static final String AUTH_SCHEME = "Bearer";
