@@ -22,16 +22,18 @@ public class Order {
     private String title;
     private int quantity;
     private String link;
+    private String note;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private LocalDateTime requestedDate;
     private LocalDateTime updatedDate;
 
-    public static Order create(String title, int quantity, String link) {
+    public static Order create(String title, int quantity, String link, String note) {
         Order order = new Order();
         order.title = title;
         order.quantity = quantity;
         order.link = link;
+        order.note = note;
         order.status = OrderStatus.SUBMIT;
         order.requestedDate = LocalDateTime.now();
         order.updatedDate = order.requestedDate;

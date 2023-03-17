@@ -27,7 +27,6 @@ public class BackofficeOrderController {
             return BackofficeResponse.of(OrderListResponse.from(orders));
         } catch (Exception e) {
             log.error("ORDR:SRCH:FAIL: 주문 조회중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
@@ -42,7 +41,6 @@ public class BackofficeOrderController {
             return BackofficeResponse.of(OrderResponse.from(order));
         } catch (Exception e) {
             log.error("ORDR:UPDT:FAIL: 주문 변경중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
@@ -57,7 +55,6 @@ public class BackofficeOrderController {
             return BackofficeResponse.of(OrderResponse.of(orderId));
         } catch (Exception e) {
             log.error("ORDR:DEL_:FAIL: 주문 삭제중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
