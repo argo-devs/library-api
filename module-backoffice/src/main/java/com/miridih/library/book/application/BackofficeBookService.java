@@ -2,7 +2,7 @@ package com.miridih.library.book.application;
 
 import com.google.zxing.WriterException;
 import com.miridih.library.book.application.dto.BookCode;
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 
 import java.io.IOException;
 

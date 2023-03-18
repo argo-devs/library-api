@@ -1,21 +1,24 @@
-package com.miridih.library.book.application.external;
+package com.miridih.library.book.infrastructure.naver;
 
-import com.miridih.library.book.application.dto.ExternalBookMeta;
-import com.miridih.library.book.application.dto.ExternalBookMetaSearchCondition;
+import com.miridih.library.book.application.ExternalBookMetaSearchCondition;
+import com.miridih.library.book.domain.ExternalBookMeta;
+import com.miridih.library.book.infrastructure.ExternalBookMetaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Slf4j
+@Repository
 @RequiredArgsConstructor
-class NaverBookServiceImpl implements ExternalBookMetaService {
+class NaverBookRepository implements ExternalBookMetaRepository {
     private static final String NAVER_BOOK_SEARCH_API = "https://openapi.naver.com/v1/search/book.json";
     private static final String NAVER_CLIENT_ID_HEADER = "X-Naver-Client-Id";
     private static final String NAVER_CLIENT_SECRET_HEADER = "X-Naver-Client-Secret";
@@ -30,7 +33,6 @@ class NaverBookServiceImpl implements ExternalBookMetaService {
 
     @Override
     public List<ExternalBookMeta> search(ExternalBookMetaSearchCondition searchCondition) {
-// 검증
         List<ExternalBookMeta> bookMetaList = new ArrayList<>();
         if(searchCondition.getQuery() == null || searchCondition.getQuery().isBlank()) {
             return bookMetaList;

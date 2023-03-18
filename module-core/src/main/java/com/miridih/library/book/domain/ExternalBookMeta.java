@@ -1,4 +1,4 @@
-package com.miridih.library.book.application.dto;
+package com.miridih.library.book.domain;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,12 +1,12 @@
 package com.miridih.library.book.application;
 
 import com.google.zxing.WriterException;
-import com.miridih.library.book.application.dto.*;
-import com.miridih.library.book.application.external.ExternalBookMetaService;
-import com.miridih.library.book.internal.application.BookMetaService;
-import com.miridih.library.book.internal.application.BookService;
-import com.miridih.library.book.internal.domain.Book;
-import com.miridih.library.book.internal.domain.BookMeta;
+import com.miridih.library.book.application.dto.BookCode;
+import com.miridih.library.book.application.dto.BookMetaInput;
+import com.miridih.library.book.application.dto.BookMetaSearchCondition;
+import com.miridih.library.book.domain.Book;
+import com.miridih.library.book.domain.BookMeta;
+import com.miridih.library.book.domain.ExternalBookMeta;
 import com.miridih.library.category.application.CategoryService;
 import com.miridih.library.category.domain.Category;
 import lombok.RequiredArgsConstructor;
@@ -28,14 +28,13 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
     private final CategoryService categoryService;
     private final BookService bookService;
     private final BookMetaService bookMetaService;
-    private final ExternalBookMetaService externalBookMetaService;
     private final BackofficeBookService backofficeBookService;
 
     private static final String DEFAULT_CATEGORY = "기타";
 
     @Override
-    public List<ExternalBookMeta> searchBookMeta(ExternalBookMetaSearchCondition searchCondition) {
-        return externalBookMetaService.search(searchCondition);
+    public List<ExternalBookMeta> searchExternalBookMeta(ExternalBookMetaSearchCondition searchCondition) {
+        return bookMetaService.getExternalBookMetaList(searchCondition);
     }
 
     @Override

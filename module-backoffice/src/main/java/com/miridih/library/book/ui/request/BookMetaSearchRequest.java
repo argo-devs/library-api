@@ -1,7 +1,7 @@
 package com.miridih.library.book.ui.request;
 
 import com.miridih.library.book.application.dto.BookMetaSearchCondition;
-import com.miridih.library.book.application.dto.ExternalBookMetaSearchCondition;
+import com.miridih.library.book.application.ExternalBookMetaSearchCondition;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

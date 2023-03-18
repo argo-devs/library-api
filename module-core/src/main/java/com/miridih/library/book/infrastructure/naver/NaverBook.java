@@ -1,6 +1,6 @@
-package com.miridih.library.book.application.external;
+package com.miridih.library.book.infrastructure.naver;
 
-import com.miridih.library.book.application.dto.ExternalBookMeta;
+import com.miridih.library.book.domain.ExternalBookMeta;
 import lombok.Getter;
 
 @Getter

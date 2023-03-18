@@ -1,6 +1,6 @@
 package com.miridih.library.book.ui.response;
 
-import com.miridih.library.book.application.dto.ExternalBookMeta;
+import com.miridih.library.book.domain.ExternalBookMeta;
 import lombok.Getter;
 import lombok.ToString;
 

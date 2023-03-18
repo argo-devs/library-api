@@ -1,4 +1,4 @@
-package com.miridih.library.book.application.external;
+package com.miridih.library.book.infrastructure.naver;
 
 import lombok.Builder;
 import lombok.Getter;

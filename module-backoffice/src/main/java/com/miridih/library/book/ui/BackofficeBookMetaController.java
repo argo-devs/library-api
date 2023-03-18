@@ -1,8 +1,8 @@
 package com.miridih.library.book.ui;
 
 import com.miridih.library.book.application.BackofficeBookMetaService;
-import com.miridih.library.book.application.dto.ExternalBookMeta;
-import com.miridih.library.book.internal.domain.BookMeta;
+import com.miridih.library.book.domain.ExternalBookMeta;
+import com.miridih.library.book.domain.BookMeta;
 import com.miridih.library.book.ui.request.BookMetaCreateRequest;
 import com.miridih.library.book.ui.request.BookMetaSearchRequest;
 import com.miridih.library.book.ui.request.BookMetaUpdateRequest;
@@ -99,7 +99,7 @@ public class BackofficeBookMetaController {
 
         try {
             List<ExternalBookMeta> externalBookMetaList =
-                    backofficeBookMetaService.searchBookMeta(request.toExternalBookMetaSearchCondition());
+                    backofficeBookMetaService.searchExternalBookMeta(request.toExternalBookMetaSearchCondition());
 
             return BackofficeResponse.of(ExternalBookMetaListResponse.from(externalBookMetaList));
         } catch (Exception e) {

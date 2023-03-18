@@ -1,6 +1,6 @@
 package com.miridih.library.book.ui.response;
 
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
