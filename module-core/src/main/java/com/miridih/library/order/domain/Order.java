@@ -28,12 +28,13 @@ public class Order {
     private LocalDateTime requestedDate;
     private LocalDateTime updatedDate;
 
-    public static Order create(String title, int quantity, String link, String note) {
+    public static Order create(String title, int quantity, String link, String note, Account account) {
         Order order = new Order();
         order.title = title;
         order.quantity = quantity;
         order.link = link;
         order.note = note;
+        order.account = account;
         order.status = OrderStatus.SUBMIT;
         order.requestedDate = LocalDateTime.now();
         order.updatedDate = order.requestedDate;
@@ -45,11 +46,19 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public void updateNote(String note) {
+        this.note = note;
+    }
+
     public void updateStatus(OrderStatus status) {
         this.status = status;
     }
 
     public void delete() {
         status = OrderStatus.INACTIVE;
+    }
+
+    public boolean isBeingProcessed() {
+        return status != OrderStatus.SUBMIT;
     }
 }

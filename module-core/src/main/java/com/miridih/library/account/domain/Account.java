@@ -75,4 +75,8 @@ public class Account {
     public void updated() {
         this.updatedDate = LocalDateTime.now();
     }
+
+    public boolean isSameAccount(Account account) {
+        return this.email.equals(account.getEmail());
+    }
 }

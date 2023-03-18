@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  jackson:
+    default-property-inclusion: non_null
