@@ -1,6 +1,6 @@
 package com.miridih.library.loan.application;
 
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import com.miridih.library.loan.domain.BookLoanWait;
 import com.miridih.library.loan.infrastructure.BookLoanWaitRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.miridih.library.book.internal.exception;
+package com.miridih.library.book.exception;
 
 public class InternalBookException extends RuntimeException {
 

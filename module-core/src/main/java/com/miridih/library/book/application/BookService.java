@@ -1,6 +1,6 @@
-package com.miridih.library.book.internal.application;
+package com.miridih.library.book.application;
 
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 
 import java.util.List;
 

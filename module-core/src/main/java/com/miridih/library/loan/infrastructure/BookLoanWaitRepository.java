@@ -1,6 +1,6 @@
 package com.miridih.library.loan.infrastructure;
 
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import com.miridih.library.loan.domain.BookLoanWait;
 import com.miridih.library.loan.domain.BookLoanWaitId;
 import org.springframework.data.jpa.repository.JpaRepository;

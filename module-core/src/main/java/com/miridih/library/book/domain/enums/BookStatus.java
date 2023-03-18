@@ -1,4 +1,4 @@
-package com.miridih.library.book.internal.domain.enums;
+package com.miridih.library.book.domain.enums;
 
 public enum BookStatus {
     ACTIVE,

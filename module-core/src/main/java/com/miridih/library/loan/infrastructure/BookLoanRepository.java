@@ -1,7 +1,7 @@
 package com.miridih.library.loan.infrastructure;
 
 import com.miridih.library.account.domain.Account;
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import com.miridih.library.loan.domain.BookLoan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

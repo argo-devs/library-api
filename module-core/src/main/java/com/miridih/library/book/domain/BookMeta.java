@@ -1,4 +1,4 @@
-package com.miridih.library.book.internal.domain;
+package com.miridih.library.book.domain;
 
 import com.miridih.library.category.domain.Category;
 import lombok.AccessLevel;

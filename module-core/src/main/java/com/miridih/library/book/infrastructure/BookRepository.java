@@ -1,6 +1,6 @@
-package com.miridih.library.book.internal.infrastructure;
+package com.miridih.library.book.infrastructure;
 
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

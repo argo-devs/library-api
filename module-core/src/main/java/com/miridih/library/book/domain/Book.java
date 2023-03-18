@@ -1,6 +1,6 @@
-package com.miridih.library.book.internal.domain;
+package com.miridih.library.book.domain;
 
-import com.miridih.library.book.internal.domain.enums.BookStatus;
+import com.miridih.library.book.domain.enums.BookStatus;
 import com.miridih.library.loan.domain.BookLoan;
 import lombok.AccessLevel;
 import lombok.Getter;

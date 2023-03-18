@@ -1,7 +1,7 @@
 package com.miridih.library.loan.domain;
 
 import com.miridih.library.account.domain.Account;
-import com.miridih.library.book.internal.domain.Book;
+import com.miridih.library.book.domain.Book;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

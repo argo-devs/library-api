@@ -1,6 +1,6 @@
 package com.miridih.library.category.domain;
 
-import com.miridih.library.book.internal.domain.BookMeta;
+import com.miridih.library.book.domain.BookMeta;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
