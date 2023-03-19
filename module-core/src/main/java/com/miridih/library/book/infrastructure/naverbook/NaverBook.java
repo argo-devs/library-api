@@ -1,4 +1,4 @@
-package com.miridih.library.book.infrastructure.naver;
+package com.miridih.library.book.infrastructure.naverbook;
 
 import com.miridih.library.book.domain.ExternalBookMeta;
 import lombok.Getter;

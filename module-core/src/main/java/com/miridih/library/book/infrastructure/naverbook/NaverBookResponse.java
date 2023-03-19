@@ -1,4 +1,4 @@
-package com.miridih.library.book.infrastructure.naver;
+package com.miridih.library.book.infrastructure.naverbook;
 
 import lombok.Getter;
 import lombok.ToString;

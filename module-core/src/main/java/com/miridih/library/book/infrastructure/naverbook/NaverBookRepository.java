@@ -1,4 +1,4 @@
-package com.miridih.library.book.infrastructure.naver;
+package com.miridih.library.book.infrastructure.naverbook;
 
 import com.miridih.library.book.application.ExternalBookMetaSearchCondition;
 import com.miridih.library.book.domain.ExternalBookMeta;
@@ -19,6 +19,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 class NaverBookRepository implements ExternalBookMetaRepository {
+
     private static final String NAVER_BOOK_SEARCH_API = "https://openapi.naver.com/v1/search/book.json";
     private static final String NAVER_CLIENT_ID_HEADER = "X-Naver-Client-Id";
     private static final String NAVER_CLIENT_SECRET_HEADER = "X-Naver-Client-Secret";
