@@ -3,7 +3,6 @@ package com.miridih.library.book.application;
 import com.google.zxing.WriterException;
 import com.miridih.library.book.application.dto.BookCode;
 import com.miridih.library.book.application.dto.BookMetaInput;
-import com.miridih.library.book.application.dto.BookMetaSearchCondition;
 import com.miridih.library.book.domain.Book;
 import com.miridih.library.book.domain.BookMeta;
 import com.miridih.library.book.domain.ExternalBookMeta;

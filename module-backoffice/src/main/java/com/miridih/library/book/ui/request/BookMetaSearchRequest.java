@@ -1,6 +1,6 @@
 package com.miridih.library.book.ui.request;
 
-import com.miridih.library.book.application.dto.BookMetaSearchCondition;
+import com.miridih.library.book.application.BookMetaSearchCondition;
 import com.miridih.library.book.application.ExternalBookMetaSearchCondition;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +14,6 @@ public class BookMetaSearchRequest {
     private int size = 15;
 
     public ExternalBookMetaSearchCondition toExternalBookMetaSearchCondition() {
-
         return ExternalBookMetaSearchCondition
                 .builder()
                 .query(name)

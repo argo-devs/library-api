@@ -48,4 +48,13 @@ public class Book {
     public void updateStatus(BookStatus status) {
         this.status = status;
     }
+
+    public boolean isAvailableForLoan() {
+        return status == BookStatus.ACTIVE;
+    }
+
+    public boolean isInLoan() {
+        return status == BookStatus.IN_LOAN &&
+                bookLoan != null;
+    }
 }
