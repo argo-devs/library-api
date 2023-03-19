@@ -46,7 +46,7 @@ public class SecurityConfig {
                         .disable()
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/auth").permitAll()
+                        .antMatchers("/auth", "/book/**").permitAll()
                         .antMatchers("/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
