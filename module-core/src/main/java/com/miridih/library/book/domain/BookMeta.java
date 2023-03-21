@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,7 +29,7 @@ public class BookMeta {
     private Category category;
 
     @OneToMany(mappedBy = "bookMeta")
-    private List<Book> bookList;
+    private List<Book> bookList = new ArrayList<>();
 
     public static BookMeta of(Long bookMetaId) {
         BookMeta bookMeta = new BookMeta();
