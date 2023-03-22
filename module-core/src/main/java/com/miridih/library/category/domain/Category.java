@@ -13,6 +13,9 @@ import java.util.List;
 @Entity(name = "category")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
+
+    private static final String DEFAULT_BOOK_CATEGORY_VALUE = "기타";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,7 +49,22 @@ public class Category {
         return category;
     }
 
-    public void changeDisplayName(String displayName) {
-        this.displayName = displayName;
+    public boolean isEqualTo(String categoryName) {
+        return categoryName.equals(name)
+                && categoryName.equals(displayName);
+    }
+
+    public boolean isDefault() {
+        return DEFAULT_BOOK_CATEGORY_VALUE.equals(name)
+                && DEFAULT_BOOK_CATEGORY_VALUE.equals(displayName);
+    }
+
+    public boolean isDeleted() {
+        return DEFAULT_BOOK_CATEGORY_VALUE.equals(displayName)
+                && !DEFAULT_BOOK_CATEGORY_VALUE.equals(name);
+    }
+
+    public void delete() {
+        displayName = DEFAULT_BOOK_CATEGORY_VALUE;
     }
 }
