@@ -2,6 +2,7 @@ package com.miridih.library.category.ui;
 
 import com.miridih.library.category.application.BackofficeCategoryService;
 import com.miridih.library.category.domain.Category;
+import com.miridih.library.category.exception.CategoryException;
 import com.miridih.library.category.ui.request.CategoryCreateRequest;
 import com.miridih.library.category.ui.request.CategoryUpdateRequest;
 import com.miridih.library.category.ui.response.CategoryResponse;
@@ -42,9 +43,11 @@ public class BackofficeCategoryController {
                     .collect(Collectors.toList());
 
             return BackofficeResponse.of(response);
+        } catch (CategoryException e) {
+            log.warn("CATE:SRCH:FAIL: 카테고리 조회중 오류 발생.", e);
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:SRCH:FAIL: 카테고리 조회중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
@@ -57,9 +60,11 @@ public class BackofficeCategoryController {
             Category category = backofficeCategoryService.createCategory(request.toCategoryCreateInput());
 
             return BackofficeResponse.of(CategoryResponse.from(category));
+        } catch (CategoryException e) {
+            log.warn("CATE:CRTE:FAIL: 카테고리 생성중 오류 발생.", e);
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:CRTE:FAIL: 카테고리 생성중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
@@ -72,9 +77,11 @@ public class BackofficeCategoryController {
             Category udpatedCategory = backofficeCategoryService.updateCategory(request.toCategoryUpdateInput());
 
             return BackofficeResponse.of(CategoryResponse.from(udpatedCategory));
+        } catch (CategoryException e) {
+            log.warn("CATE:UPDT:FAIL: 카테고리 변경 처리중 오류 발생.", e);
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:UPDT:FAIL: 카테고리 변경 처리중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }
@@ -87,9 +94,11 @@ public class BackofficeCategoryController {
             backofficeCategoryService.deleteCategory(categoryId);
 
             return BackofficeResponse.of(CategoryResponse.of(categoryId));
-        } catch (Exception e) {
+        } catch (CategoryException e) {
+            log.warn("CATE:DEL_:FAIL: 카테고리 삭제중 오류 발생.", e);
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
+        }  catch (Exception e) {
             log.error("CATE:DEL_:FAIL: 카테고리 삭제중 오류 발생.", e);
-
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
     }

@@ -11,5 +11,5 @@ public interface BackofficeCategoryService {
     List<Category> findAllCategory();
     Category createCategory(CategoryCreateInput input);
     Category updateCategory(CategoryUpdateInput input);
-    void deleteCategory(long categoryId);
+    void deleteCategory(Long categoryId);
 }
