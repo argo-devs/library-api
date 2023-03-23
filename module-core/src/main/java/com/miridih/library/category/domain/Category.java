@@ -64,6 +64,10 @@ public class Category {
                 && !DEFAULT_BOOK_CATEGORY_VALUE.equals(name);
     }
 
+    public boolean isDeletable() {
+        return !isDefault() && !isDeleted();
+    }
+
     public void delete() {
         displayName = DEFAULT_BOOK_CATEGORY_VALUE;
     }

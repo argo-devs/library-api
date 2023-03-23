@@ -58,11 +58,8 @@ public class BackofficeCategoryServiceImpl implements BackofficeCategoryService 
     @Override
     public void deleteCategory(Long categoryId) {
         Category category = findCategoryById(categoryId);
-        if(category.isDefault()) {
-            throw new CategoryException("기타 카테고리는 삭제가 불가능합니다.", category);
-        }
-        if(category.isDeleted()) {
-            throw new CategoryException("이미 삭제한 카테고리 입니다.", categoryId);
+        if(!category.isDeletable()) {
+            throw new CategoryException("삭제할 수 없는 카테고리입니다.", categoryId);
         }
 
         category.delete();
