@@ -2,19 +2,13 @@ package com.miridih.library.book.ui.response;
 
 import com.miridih.library.book.domain.BookMeta;
 import lombok.Getter;
-import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
-@ToString
 public class BookMetaResponse {
-    public BookMetaResponse() {
-    }
-
     @Getter
-    @ToString
     private static class Category {
         private Long id;
         private String name;
@@ -36,7 +30,7 @@ public class BookMetaResponse {
     private String isbn;
     private String imageUrl;
     private Category category;
-    private final List<BookResponse> bookList = new ArrayList<>();
+    private List<BookResponse> bookList;
 
     public static BookMetaResponse from(BookMeta bookMeta) {
         BookMetaResponse response = new BookMetaResponse();
@@ -48,10 +42,11 @@ public class BookMetaResponse {
         response.isbn = bookMeta.getIsbn();
         response.imageUrl = bookMeta.getImageUrl();
         response.category = Category.of(bookMeta.getCategory().getId(), bookMeta.getCategory().getDisplayName());
-        bookMeta.getBookList()
-                .forEach(book ->
-                        response.bookList.add(BookResponse.from(book))
-                );
+        response.bookList = bookMeta
+                .getBookList()
+                .stream()
+                .map(BookResponse::from)
+                .collect(Collectors.toList());
 
         return response;
     }

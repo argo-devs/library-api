@@ -71,4 +71,8 @@ public class Category {
     public void delete() {
         displayName = DEFAULT_BOOK_CATEGORY_VALUE;
     }
+
+    public int getBookMetaCount() {
+        return bookMetaList.size();
+    }
 }

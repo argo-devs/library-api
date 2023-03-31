@@ -1,7 +1,7 @@
 package com.miridih.library.book.ui;
 
 import com.miridih.library.book.application.BackofficeBookService;
-import com.miridih.library.book.application.dto.BookCode;
+import com.miridih.library.book.application.code.BookCode;
 import com.miridih.library.book.domain.Book;
 import com.miridih.library.book.ui.request.BookRegisterRequest;
 import com.miridih.library.book.ui.response.BookCodeResponse;

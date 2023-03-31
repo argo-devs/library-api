@@ -1,22 +1,32 @@
 package com.miridih.library.book.application;
 
 import com.google.zxing.WriterException;
-import com.miridih.library.book.application.dto.BookCode;
+import com.miridih.library.book.application.dto.BookMetaInfo;
 import com.miridih.library.book.application.dto.BookMetaInput;
+import com.miridih.library.book.application.code.BookCode;
+import com.miridih.library.book.application.code.QRCodeService;
+import com.miridih.library.book.application.dto.BookMetaSearchCondition;
+import com.miridih.library.book.application.dto.ExternalBookMetaSearchCondition;
 import com.miridih.library.book.domain.Book;
 import com.miridih.library.book.domain.BookMeta;
 import com.miridih.library.book.domain.ExternalBookMeta;
-import com.miridih.library.category.application.CategoryService;
+import com.miridih.library.book.exception.BookMetaException;
+import com.miridih.library.book.exception.BookMetaNotFoundException;
+import com.miridih.library.book.infrastructure.BookMetaRepository;
+import com.miridih.library.book.infrastructure.BookRepository;
+import com.miridih.library.book.infrastructure.ExternalBookMetaAgent;
 import com.miridih.library.category.domain.Category;
+import com.miridih.library.category.exception.CategoryNotFoundException;
+import com.miridih.library.category.infrastructure.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -24,30 +34,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService {
 
-    private final CategoryService categoryService;
-    private final BookService bookService;
-    private final BookMetaService bookMetaService;
-    private final BackofficeBookService backofficeBookService;
-
     private static final String DEFAULT_CATEGORY = "기타";
 
+    private final BookRepository bookRepository;
+    private final BookMetaRepository bookMetaRepository;
+    private final CategoryRepository categoryRepository;
+    private final ExternalBookMetaAgent externalBookMetaAgent;
+
+    private final QRCodeService qrCodeService;
+
     @Override
-    public List<ExternalBookMeta> searchExternalBookMeta(ExternalBookMetaSearchCondition searchCondition) {
-        return bookMetaService.getExternalBookMetaList(searchCondition);
+    public Page<ExternalBookMeta> searchExternalBookMeta(ExternalBookMetaSearchCondition searchCondition) {
+        return externalBookMetaAgent.search(searchCondition.getQuery(), searchCondition.getPageable());
     }
 
     @Override
     public List<BookCode> getAllBookCode(Long bookMetaId) {
-        BookMeta bookMeta = bookMetaService.getById(bookMetaId);
+        BookMeta bookMeta = getBookMetaById(bookMetaId);
         List<Book> bookList = bookMeta.getBookList();
+
         List<BookCode> bookCodeList = new ArrayList<>();
         for(Book book: bookList) {
             try {
-                BookCode bookCode = backofficeBookService.getCode(book.getId());
+                BookCode bookCode = qrCodeService.getCode(book.getId());
                 bookCodeList.add(bookCode);
             } catch (IOException | WriterException e) {
-                // throw new RuntimeException("");
-                log.error("");
+                throw new BookMetaException("QR 코드 생성 실패", e, book);
             }
         }
 
@@ -55,15 +67,34 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
     }
 
     @Override
-    public Page<BookMeta> searchBookMeta(BookMetaSearchCondition searchCondition) {
-        if(searchCondition.getBookMetaId() != null) {
-            BookMeta bookMeta = bookMetaService.getById(searchCondition.getBookMetaId());
-            return new PageImpl<>(List.of(bookMeta));
-        } else if(searchCondition.getName() != null) {
-            return bookMetaService.getByName(searchCondition.getName(), searchCondition.getPageable());
+    public BookMetaInfo searchBookMeta(BookMetaSearchCondition searchCondition) {
+        if(searchCondition.isSearchingIndividualBookMeta()) {
+            List<BookMeta> bookMetaList = bookMetaRepository
+                    .findAllById(Collections.singleton(searchCondition.getBookMetaId()));
+
+            return BookMetaInfo.of(new PageImpl<>(bookMetaList), categoryRepository.findAll());
         }
 
-        return bookMetaService.getAll(searchCondition.getPageable());
+        Page<BookMeta> bookMetaPage;
+        if(searchCondition.isEmptySearch()) {
+            bookMetaPage = bookMetaRepository.findAll(searchCondition.getPageable());
+        } else if(searchCondition.containsAllSearchCondition()) {
+            bookMetaPage = bookMetaRepository
+                    .findAllByTitleContainingAndCategory(
+                            searchCondition.getName(),
+                            searchCondition.getCategory(),
+                            searchCondition.getPageable()
+                    );
+        } else {
+            bookMetaPage = bookMetaRepository
+                    .findAllByTitleContainingOrCategory(
+                            searchCondition.getName(),
+                            searchCondition.getCategory(),
+                            searchCondition.getPageable()
+                    );
+        }
+
+        return BookMetaInfo.of(bookMetaPage, categoryRepository.findAll());
     }
 
     @Transactional
@@ -71,7 +102,10 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
     public BookMeta registerBookMeta(BookMetaInput bookMetaInput) {
         Long categoryId = bookMetaInput.getCategoryId();
         if(categoryId == null) {
-            Category category = categoryService.getByName(DEFAULT_CATEGORY);
+            Category category = categoryRepository
+                    .findByName(DEFAULT_CATEGORY)
+                    .orElseThrow(() -> new CategoryNotFoundException("카테고리를 찾을 수 없습니다.", DEFAULT_CATEGORY));
+
             categoryId = category.getId();
         }
 
@@ -85,7 +119,8 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
                 bookMetaInput.getImageUrl(),
                 categoryId
         );
-        bookMeta = bookMetaService.save(bookMeta);
+
+        bookMeta = bookMetaRepository.save(bookMeta);
 
         // 도서 등록
         List<Book> bookList = new ArrayList<>();
@@ -93,20 +128,25 @@ public class BackofficeBookMetaServiceImpl implements BackofficeBookMetaService 
             bookList.add(Book.from(bookMeta.getId()));
         }
 
-        bookService.bulkSave(bookList);
+        bookList = bookRepository.saveAll(bookList);
+        bookMeta.addAllBooks(bookList);
 
         return bookMeta;
     }
 
-    @Override
-    public BookMeta updateBookMeta(BookMetaInput bookMetaInput) {
-        BookMeta bookMeta = bookMetaService.getById(bookMetaInput.getId());
-
-        return null;
-    }
-
+    @Transactional
     @Override
     public void deleteBookMeta(Long bookMetaId) {
-        bookMetaService.delete(bookMetaId);
+        // FK constraint 인 경우 에러 처리
+        BookMeta bookMeta = getBookMetaById(bookMetaId);
+
+        bookRepository.deleteAllInBatch(bookMeta.getBookList());
+        bookMetaRepository.delete(bookMeta);
+    }
+
+    private BookMeta getBookMetaById(Long bookMetaId) {
+        return bookMetaRepository
+                .findById(bookMetaId)
+                .orElseThrow(() -> new BookMetaNotFoundException("도서 메타를 찾을 수 없습니다.", bookMetaId));
     }
 }

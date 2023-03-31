@@ -4,6 +4,7 @@ import com.miridih.library.category.domain.Category;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Entity(name = "book_meta")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class BookMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,5 +52,9 @@ public class BookMeta {
         bookMeta.category = Category.of(categoryId);
 
         return bookMeta;
+    }
+
+    public void addAllBooks(List<Book> bookList) {
+        this.bookList.addAll(bookList);
     }
 }

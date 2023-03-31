@@ -1,11 +1,11 @@
 package com.miridih.library.book.ui;
 
 import com.miridih.library.book.application.BackofficeBookMetaService;
+import com.miridih.library.book.application.dto.BookMetaInfo;
 import com.miridih.library.book.domain.ExternalBookMeta;
 import com.miridih.library.book.domain.BookMeta;
 import com.miridih.library.book.ui.request.BookMetaCreateRequest;
 import com.miridih.library.book.ui.request.BookMetaSearchRequest;
-import com.miridih.library.book.ui.request.BookMetaUpdateRequest;
 import com.miridih.library.book.ui.response.BookCodeResponse;
 import com.miridih.library.book.ui.response.BookMetaListResponse;
 import com.miridih.library.book.ui.response.BookMetaResponse;
@@ -37,9 +37,9 @@ public class BackofficeBookMetaController {
         log.info("BKMT:SRCH:RQST: 도서 메타 조회 요청. [request={}]", request);
 
         try {
-            Page<BookMeta> bookMetaPage = backofficeBookMetaService.searchBookMeta(request.toBookMetaSearchCondition());
+            BookMetaInfo bookMetaInfo = backofficeBookMetaService.searchBookMeta(request.toBookMetaSearchCondition());
 
-            return BackofficeResponse.of(BookMetaListResponse.from(bookMetaPage));
+            return BackofficeResponse.of(BookMetaListResponse.from(bookMetaInfo));
         } catch (Exception e) {
             log.error("BKMT:SRCH:FAIL: 도서 메타 조회중 오류 발생.", e);
 
@@ -57,21 +57,6 @@ public class BackofficeBookMetaController {
             return BackofficeResponse.of(BookMetaResponse.from(bookMeta));
         } catch (Exception e) {
             log.error("BKMT:RGST:FAIL: 도서 메타 등록중 오류 발생.", e);
-
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
-        }
-    }
-
-    @PutMapping("/book-meta")
-    public BackofficeResponse<BookMetaResponse> updateBookMeta(@RequestBody BookMetaUpdateRequest request) {
-        log.info("BKMT:UPDT:RQST: 도서 메타 변경 요청. [request={}]", request);
-
-        try {
-            BookMeta bookMeta = backofficeBookMetaService.updateBookMeta(request.toBookMetaInput());
-
-            return BackofficeResponse.of(BookMetaResponse.from(bookMeta));
-        } catch (Exception e) {
-            log.error("BKMT:UPDT:FAIL: 도서 메타 변경중 오류 발생.", e);
 
             return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
         }
@@ -98,7 +83,7 @@ public class BackofficeBookMetaController {
         log.info("EXTN:SRCH:RQST: 외부 도서 메타 조회 요청. [request={}]", request);
 
         try {
-            List<ExternalBookMeta> externalBookMetaList =
+            Page<ExternalBookMeta> externalBookMetaList =
                     backofficeBookMetaService.searchExternalBookMeta(request.toExternalBookMetaSearchCondition());
 
             return BackofficeResponse.of(ExternalBookMetaListResponse.from(externalBookMetaList));

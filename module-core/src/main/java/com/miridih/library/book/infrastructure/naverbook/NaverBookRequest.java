@@ -2,12 +2,14 @@ package com.miridih.library.book.infrastructure.naverbook;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
 @Getter
 @Builder
+@ToString
 class NaverBookRequest {
     @Getter
     public enum SortType {
@@ -23,7 +25,7 @@ class NaverBookRequest {
     }
 
     private static final Integer MIN_DISPLAY_VALUE = 10;
-    private static final Integer MAX_DISPLAY_VALUE = 10;
+    private static final Integer MAX_DISPLAY_VALUE = 100;
     private static final Integer MIN_START_VALUE = 1;
     private static final Integer MAX_START_VALUE = 100;
 

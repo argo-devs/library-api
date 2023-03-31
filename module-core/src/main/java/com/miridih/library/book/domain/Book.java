@@ -1,6 +1,7 @@
 package com.miridih.library.book.domain;
 
 import com.miridih.library.book.domain.enums.BookStatus;
+import com.miridih.library.book.exception.BookException;
 import com.miridih.library.loan.domain.BookLoan;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -45,10 +46,6 @@ public class Book {
         return book;
     }
 
-    public void updateStatus(BookStatus status) {
-        this.status = status;
-    }
-
     public boolean isAvailableForLoan() {
         return status == BookStatus.ACTIVE;
     }
@@ -56,5 +53,34 @@ public class Book {
     public boolean isInLoan() {
         return status == BookStatus.IN_LOAN &&
                 bookLoan != null;
+    }
+
+    public void isDeletable() {
+        validateBookUpdatable();
+    }
+
+    private void validateBookUpdatable() {
+        if(status != BookStatus.IN_LOAN) {
+            throw new BookException("대출 상태를 변경할 수 없습니다.");
+
+        }
+    }
+
+    public void deactivate() {
+        validateBookUpdatable();
+        if(status == BookStatus.INACTIVE) {
+            throw new BookException("이미 비활성화된 상태입니다.");
+        }
+
+        status = BookStatus.INACTIVE;
+    }
+
+    public void activate() {
+        validateBookUpdatable();
+        if(status == BookStatus.ACTIVE) {
+            throw new BookException("이미 활성화된 상태입니다.");
+        }
+
+        status = BookStatus.ACTIVE;
     }
 }
