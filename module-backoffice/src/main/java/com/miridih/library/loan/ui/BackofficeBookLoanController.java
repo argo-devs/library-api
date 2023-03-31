@@ -28,7 +28,7 @@ public class BackofficeBookLoanController {
         } catch (Exception e) {
             log.error("LOAN:SRCH:FAIL: 대출 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public class BackofficeBookLoanController {
         } catch (Exception e) {
             log.error("LOAN:DEL_:FAIL: 도서 반납중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }

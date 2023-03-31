@@ -43,7 +43,7 @@ public class BackofficeBookMetaController {
         } catch (Exception e) {
             log.error("BKMT:SRCH:FAIL: 도서 메타 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class BackofficeBookMetaController {
         } catch (Exception e) {
             log.error("BKMT:RGST:FAIL: 도서 메타 등록중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class BackofficeBookMetaController {
         } catch (Exception e) {
             log.error("BKMT:DEL_:FAIL: 도서 메타 삭제중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class BackofficeBookMetaController {
         } catch (Exception e) {
             log.error("EXTN:SRCH:FAIL: 외부 도서 메타 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class BackofficeBookMetaController {
         } catch (Exception e) {
             log.error("BKMT:CODE:FAIL: 도서 메타 QR 코드 발급중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }

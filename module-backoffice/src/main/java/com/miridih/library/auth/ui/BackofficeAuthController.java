@@ -31,7 +31,7 @@ public class BackofficeAuthController {
         } catch (Exception e) {
             log.error("AUTH:TOKN:FAIL: 토큰 발급중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class BackofficeAuthController {
         } catch (Exception e) {
             log.error("AUTH:RFSH:FAIL: 토큰 재발급중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class BackofficeAuthController {
         } catch (Exception e) {
             log.error("AUTH:DEL_:FAIL: 토큰 삭제중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }

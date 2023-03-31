@@ -28,7 +28,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:SRCH:FAIL: 사용자 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
 
     }
@@ -44,7 +44,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:SRCH:FAIL: 사용자 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:RGST:FAIL: 사용자 등록중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:UPDT:FAIL: 사용자 변경중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:DEL_:FAIL: 사용자 삭제중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
 
         }
     }
@@ -105,8 +105,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:ACTV:FAIL: 사용자 활성화중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
-
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -121,8 +120,7 @@ public class BackofficeAccountController {
         } catch (Exception e) {
             log.error("ACCT:DATV:FAIL: 사용자 비활성화중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
-
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }

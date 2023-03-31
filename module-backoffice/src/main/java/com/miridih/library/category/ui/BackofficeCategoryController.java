@@ -48,7 +48,7 @@ public class BackofficeCategoryController {
             return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:SRCH:FAIL: 카테고리 조회중 오류 발생.", e);
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class BackofficeCategoryController {
             return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:CRTE:FAIL: 카테고리 생성중 오류 발생.", e);
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ public class BackofficeCategoryController {
             return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         } catch (Exception e) {
             log.error("CATE:UPDT:FAIL: 카테고리 변경 처리중 오류 발생.", e);
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class BackofficeCategoryController {
             return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }  catch (Exception e) {
             log.error("CATE:DEL_:FAIL: 카테고리 삭제중 오류 발생.", e);
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }

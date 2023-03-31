@@ -30,7 +30,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:SRCH:FAIL: 도서 조회중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:RGST:FAIL: 도서 등록중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
 
     }
@@ -61,7 +61,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:DEL_:FAIL: 도서 삭제중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:ACTV:FAIL: 도서 활성화중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:DATV:FAIL: 도서 비활성화중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ public class BackofficeBookController {
         } catch (Exception e) {
             log.error("BOOK:CODE:FAIL: 도서 QR 코드 발급중 오류 발생.", e);
 
-            return BackofficeResponse.of(ErrorStatus.E1, "관리자에게 문의 바랍니다.");
+            return BackofficeResponse.of(ErrorStatus.E1, e.getMessage());
         }
     }
 }
