@@ -7,18 +7,23 @@ import com.miridih.library.auth.ui.request.TokenRefreshRequest;
 import com.miridih.library.auth.ui.response.TokenResponse;
 import com.miridih.library.core.ui.response.BackofficeResponse;
 import com.miridih.library.core.ui.response.ErrorStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+@Tag(name = "사용자 인증 API")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class BackofficeAuthController {
 
     private final BackofficeAuthService backofficeAuthService;
+
+    @Operation(summary = "로그인")
 
     @PostMapping("/auth")
     public BackofficeResponse<TokenResponse> accessToken(@RequestBody TokenAccessRequest request) {
@@ -35,6 +40,8 @@ public class BackofficeAuthController {
         }
     }
 
+    @Operation(summary = "로그인 연장")
+
     @PutMapping("/auth")
     public BackofficeResponse<TokenResponse> refreshToken(@RequestBody TokenRefreshRequest request) {
         log.info("AUTH:RFSH:RQST: 토큰 재발급 요청. [request={}]", request);
@@ -50,6 +57,7 @@ public class BackofficeAuthController {
         }
     }
 
+    @Operation(summary = "로그아웃")
     @DeleteMapping("/auth")
     public BackofficeResponse<Void> logout(Principal principal) {
         if(principal == null) {

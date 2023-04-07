@@ -62,6 +62,7 @@ public class BackofficeSecurityConfig {
                         .disable()
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .antMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .antMatchers("/auth").permitAll()
                         .antMatchers("/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

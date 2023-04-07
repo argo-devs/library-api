@@ -8,3 +8,17 @@ spring:
       ddl-auto: none
   jackson:
     default-property-inclusion: non_null
+
+doc:
+  general:
+    title: 미리디 도서관 API
+    version: 0.9.0
+    description: 백오피스 API 스펙
+    contact:
+      name: 미리디 도서관
+      email: library@miridih.com
+
+  servers:
+    - environment: develop
+      host: 52.79.202.194
+      port: 8080

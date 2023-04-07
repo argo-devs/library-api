@@ -4,12 +4,17 @@ import com.miridih.library.core.ui.response.BackofficeResponse;
 import com.miridih.library.core.ui.response.ErrorStatus;
 import com.miridih.library.order.application.BackofficeOrderService;
 import com.miridih.library.order.domain.Order;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "도서 주문 API")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +22,9 @@ public class BackofficeOrderController {
 
     private final BackofficeOrderService backofficeOrderService;
 
+    @Operation(summary = "주문 조회")
     @GetMapping("/order")
-    public BackofficeResponse<OrderListResponse> getOrders(Pageable pageable) {
+    public BackofficeResponse<OrderListResponse> getOrders(@ParameterObject Pageable pageable) {
         log.info("ORDR:SRCH:RQST: 주문 조회 요청. [pageable={}]", pageable);
 
         try {
@@ -31,6 +37,7 @@ public class BackofficeOrderController {
         }
     }
 
+    @Operation(summary = "주문 변경")
     @PutMapping("/order")
     public BackofficeResponse<OrderResponse> updateOrder(@RequestBody OrderUpdateRequest request) {
         log.info("ORDR:UPDT:RQST: 주문 변경 요청. [request={}]", request);
@@ -45,8 +52,10 @@ public class BackofficeOrderController {
         }
     }
 
+    @Operation(summary = "주문 삭제")
     @DeleteMapping("/order/{orderId}")
-    public BackofficeResponse<OrderResponse> deleteOrder(@PathVariable Long orderId) {
+    public BackofficeResponse<OrderResponse> deleteOrder(
+            @Parameter(description = "주문 ID") @PathVariable Long orderId) {
         log.info("ORDR:DEL_:RQST: 주문 변경 요청. [order={}]", orderId);
 
         try {

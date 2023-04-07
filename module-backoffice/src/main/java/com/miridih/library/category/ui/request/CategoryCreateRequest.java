@@ -1,12 +1,15 @@
 package com.miridih.library.category.ui.request;
 
 import com.miridih.library.category.application.dto.CategoryCreateInput;
-import lombok.Getter;
-import lombok.ToString;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
-@Getter
-@ToString
+import javax.validation.constraints.NotBlank;
+
+@Data
 public class CategoryCreateRequest {
+    @Schema(description = "카테고리 이름", example = "개발")
+    @NotBlank
     private String categoryName;
 
     public CategoryCreateInput toCategoryCreateInput() {

@@ -8,6 +8,9 @@ import com.miridih.library.category.ui.request.CategoryUpdateRequest;
 import com.miridih.library.category.ui.response.CategoryResponse;
 import com.miridih.library.core.ui.response.BackofficeResponse;
 import com.miridih.library.core.ui.response.ErrorStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag(name = "카테고리 API")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -23,8 +27,10 @@ public class BackofficeCategoryController {
 
     private final BackofficeCategoryService backofficeCategoryService;
 
+    @Operation(summary = "카테고리 조회")
     @GetMapping("/category")
-    public BackofficeResponse<List<CategoryResponse>> getAllCategories(@RequestParam(required = false) String name) {
+    public BackofficeResponse<List<CategoryResponse>> getAllCategories(
+            @Parameter(description = "카테고리 이름") @RequestParam(required = false) String name) {
         log.info("CATE:SRCH:RQST: 카테고리 조회 요청. [request={}]", name);
 
         List<Category> categoryList = new ArrayList<>();
@@ -52,6 +58,7 @@ public class BackofficeCategoryController {
         }
     }
 
+    @Operation(summary = "카테고리 등록")
     @PostMapping("/category")
     public BackofficeResponse<CategoryResponse> createCategory(@RequestBody CategoryCreateRequest request) {
         log.info("CATE:CRTE:RQST: 카테고리 생성 요청. [request={}]", request);
@@ -69,6 +76,7 @@ public class BackofficeCategoryController {
         }
     }
 
+    @Operation(summary = "카테고리 변경")
     @PutMapping("/category")
     public BackofficeResponse<CategoryResponse> updateCategory(@RequestBody CategoryUpdateRequest request) {
         log.info("CATE:UPDT:RQST: 카테고리 변경 요청. [request={}]", request);
@@ -86,8 +94,10 @@ public class BackofficeCategoryController {
         }
     }
 
+    @Operation(summary = "카테고리 삭제")
     @DeleteMapping("/category/{categoryId}")
-    public BackofficeResponse<CategoryResponse> deleteCategory(@PathVariable Long categoryId) {
+    public BackofficeResponse<CategoryResponse> deleteCategory(
+            @Parameter(description = "카테고리 ID") @PathVariable Long categoryId) {
         log.info("CATE:DEL_:RQST: 카테고리 삭제 요청. [categoryId={}]", categoryId);
 
         try {
