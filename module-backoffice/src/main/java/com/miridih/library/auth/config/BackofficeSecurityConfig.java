@@ -1,5 +1,6 @@
 package com.miridih.library.auth.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miridih.library.auth.application.JwtAuthenticationFilter;
 import com.miridih.library.auth.application.JwtTokenProvider;
 import com.miridih.library.auth.application.LibraryAuthProvider;
@@ -26,6 +27,8 @@ public class BackofficeSecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsService userDetailsService;
+    private final ObjectMapper objectMapper;
+
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
@@ -74,6 +77,10 @@ public class BackofficeSecurityConfig {
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class
+                )
+                .addFilterBefore(
+                        new JwtExceptionFilter(objectMapper),
+                        JwtAuthenticationFilter.class
                 )
         ;
 

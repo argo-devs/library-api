@@ -45,7 +45,6 @@ public class OpenApiConfig {
         List<Server> serverList = new ArrayList<>();
         docConfiguration.getServers().forEach(server -> {
             String serverUrl = server.getProtocol() + "://" + server.getDomain() + ":" + server.getPort() + servletContext.getContextPath();
-            System.out.println("Server url: " + serverUrl);
             serverList.add(new Server().url(serverUrl).description(server.getEnvironment()));
         });
 

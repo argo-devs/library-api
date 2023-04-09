@@ -103,7 +103,8 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
             throw new ExpiredTokenException("만료된 토큰입니다.", token);
-        } catch (SecurityException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException  e) {
+        } catch (SecurityException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException |
+                 io.jsonwebtoken.security.SignatureException e) {
             throw new InvalidTokenException("유효하지 않은 토큰입니다.", e, token);
         }
     }
