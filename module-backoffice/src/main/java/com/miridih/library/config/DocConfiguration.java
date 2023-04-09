@@ -19,7 +19,8 @@ public class DocConfiguration {
     @Data
     public static class ServerInfo {
         private String environment;
-        private String host;
+        private String protocol;
+        private String domain;
         private String port;
     }
 

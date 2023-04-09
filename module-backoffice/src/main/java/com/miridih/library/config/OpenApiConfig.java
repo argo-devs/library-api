@@ -44,7 +44,8 @@ public class OpenApiConfig {
         // 서버 정보
         List<Server> serverList = new ArrayList<>();
         docConfiguration.getServers().forEach(server -> {
-            String serverUrl = server.getHost() + ":" + server.getPort() + servletContext.getContextPath();
+            String serverUrl = server.getProtocol() + "://" + server.getDomain() + ":" + server.getPort() + servletContext.getContextPath();
+            System.out.println("Server url: " + serverUrl);
             serverList.add(new Server().url(serverUrl).description(server.getEnvironment()));
         });
 

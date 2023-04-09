@@ -20,5 +20,6 @@ doc:
 
   servers:
     - environment: develop
-      host: 52.79.202.194
+      protocol: http
+      domain: 52.79.202.194
       port: 8080
